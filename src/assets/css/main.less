@@ -2,12 +2,16 @@
   font-size: 16px;
   --color-blue: #1E88E5;
   --color-green: #4CAF50;
+  --max-width: 80rem;
 }
 
 // 滚动条
 ::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
+}
+::-webkit-scrollbar-corner {
+  display: none;
 }
 ::-webkit-scrollbar-track {
   background-color: transparent;
@@ -28,4 +32,24 @@ html, body, #app {
   overflow: hidden;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Buefy */
+
+.modal {
+  &.is-active {
+    z-index: 1000;
+  }
+
+  .modal-background {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.select {
+  width: 100%;
+
+  select {
+    width: 100%;
+  }
 }
