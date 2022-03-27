@@ -4,6 +4,7 @@ specifiers:
   '@babel/core': ^7.12.16
   '@babel/eslint-parser': ^7.12.16
   '@mdi/font': ^6.5.95
+  '@types/file-saver': ^2.0.5
   '@vue/cli-plugin-babel': ~5.0.0
   '@vue/cli-plugin-eslint': ~5.0.0
   '@vue/cli-plugin-vuex': ~5.0.0
@@ -12,6 +13,8 @@ specifiers:
   core-js: ^3.8.3
   eslint: ^7.32.0
   eslint-plugin-vue: ^8.0.3
+  file-saver: ^2.0.5
+  json5: ^2.2.1
   less: ^4.0.0
   less-loader: ^8.0.0
   ress: ^5.0.2
@@ -23,6 +26,8 @@ dependencies:
   '@mdi/font': 6.5.95
   buefy: 0.9.19_vue@2.6.14
   core-js: 3.21.1
+  file-saver: 2.0.5
+  json5: 2.2.1
   ress: 5.0.2
   vue: 2.6.14
   vuex: 3.6.2_vue@2.6.14
@@ -30,6 +35,7 @@ dependencies:
 devDependencies:
   '@babel/core': 7.17.8
   '@babel/eslint-parser': 7.17.0_@babel+core@7.17.8+eslint@7.32.0
+  '@types/file-saver': 2.0.5
   '@vue/cli-plugin-babel': 5.0.4_1a7ab14a3c0306b5654c447f15269443
   '@vue/cli-plugin-eslint': 5.0.4_6084a5b0c7b00dd6f5be6d9e72604c89
   '@vue/cli-plugin-vuex': 5.0.4_@vue+cli-service@5.0.4
@@ -1452,6 +1458,10 @@ packages:
       '@types/express-serve-static-core': 4.17.28
       '@types/qs': 6.9.7
       '@types/serve-static': 1.13.10
+    dev: true
+
+  /@types/file-saver/2.0.5:
+    resolution: {integrity: sha512-zv9kNf3keYegP5oThGLaPk8E081DFDuwfqjtiTzm6PoxChdJ1raSuADf2YGCVIyrSynLrgc8JWv296s7Q7pQSQ==}
     dev: true
 
   /@types/html-minifier-terser/6.1.0:
@@ -3515,6 +3525,10 @@ packages:
       flat-cache: 3.0.4
     dev: true
 
+  /file-saver/2.0.5:
+    resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
+    dev: false
+
   /fill-range/7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}
     engines: {node: '>=8'}
@@ -4220,7 +4234,6 @@ packages:
     resolution: {integrity: sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==}
     engines: {node: '>=6'}
     hasBin: true
-    dev: true
 
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
