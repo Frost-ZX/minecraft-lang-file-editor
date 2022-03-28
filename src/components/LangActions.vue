@@ -5,7 +5,7 @@
       <template v-if="position === 'top'">
 
         <b-button
-          type="is-primary"
+          type="is-info"
           @click="selectFile()"
         >添加文件</b-button>
         <input
@@ -31,7 +31,7 @@
 
           <b-tooltip
             label="来源语言"
-            position="is-bottom"
+            position="is-left"
             type="is-dark"
           >
             <b-select v-model="langCodeSrc">
@@ -46,7 +46,7 @@
 
           <b-tooltip
             label="编辑语言"
-            position="is-bottom"
+            position="is-left"
             type="is-dark"
           >
             <b-select v-model="langCodeEdit">
@@ -62,7 +62,7 @@
           <b-tooltip
             class="lang-transfer"
             label="互换"
-            position="is-bottom"
+            position="is-left"
             type="is-dark"
           >
             <b-button
@@ -346,7 +346,7 @@ export default {
 .lang-actions {
   position: relative;
   z-index: 100;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   background-color: #fff;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 }
@@ -355,8 +355,10 @@ export default {
   display: flex;
   align-items: center;
   margin: 0 auto;
+  padding: 0.5rem 0;
   width: 100%;
   max-width: var(--max-width);
+  overflow-x: auto;
 
   > *:not(:first-child) {
     margin-left: 0.25rem;
@@ -369,10 +371,15 @@ export default {
 
 .lang-select {
   display: flex;
-  width: 20rem;
+  flex-shrink: 0;
+  width: 18rem;
 
   > div {
     flex-grow: 1;
+  }
+
+  > div:not(:first-child) {
+    margin-left: 0.25rem;
   }
 
   .lang-transfer {

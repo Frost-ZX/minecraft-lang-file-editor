@@ -27,7 +27,7 @@
         >
           <!-- key -->
           <div class="lang-key">
-            <span class="info-label">key:</span>
+            <span class="info-label"></span>
             <span class="info-value">{{ langKey }}</span>
             <div class="item-actions">
               <b-tooltip
@@ -55,14 +55,14 @@
             </div>
           </div>
           <!-- 来源语言 -->
-          <b-field :label="langCodeSrc">
+          <b-field :label="langNameSrc">
             <b-input
               v-model="langItem[langCodeSrc]"
               readonly
             ></b-input>
           </b-field>
           <!-- 编辑语言 -->
-          <b-field :label="langCodeEdit">
+          <b-field :label="langNameEdit">
             <b-input
               v-model="langItem[langCodeEdit]"
               type="textarea"
@@ -82,6 +82,7 @@
 <script>
 import { mapState } from 'vuex';
 
+import langCodes from '@/assets/js/lang-codes';
 import utils from '@/assets/js/utils';
 
 export default {
@@ -90,7 +91,7 @@ export default {
     return {
 
       /** 调试模式 */
-      isDebug: false,
+      isDebug: true,
 
       /**
        * @description 本地的 langItemsEdit 数据
@@ -125,6 +126,26 @@ export default {
       'pageNum',
       'pageSize',
     ]),
+
+    /** 编辑语言的名称 */
+    langNameEdit(vm) {
+
+      const code = vm.langCodeEdit;
+      const label = langCodes[code]?.label;
+
+      return (label ? `${code}（${label}）` : code);
+
+    },
+
+    /** 来源语言的名称 */
+    langNameSrc(vm) {
+
+      const code = vm.langCodeSrc;
+      const label = langCodes[code]?.label;
+
+      return (label ? `${code}（${label}）` : code);
+
+    },
 
     showLangItems(vm) {
       const { langCodeSrc, langCodeEdit, editDatasPage } = vm;
@@ -389,13 +410,16 @@ export default {
 
   .info-label {
     flex-shrink: 0;
-    font-weight: bold;
+    width: 0.25em;
+    height: 1.25em;
+    background-color: #167DF0;
   }
 
   .info-value {
     flex-grow: 1;
     margin: 0 0.5em;
     word-break: break-all;
+    color: #167DF0;
   }
 
   .item-actions {
