@@ -18,7 +18,7 @@
 
         <b-button
           type="is-success"
-          :disabled="!langCodeEdit"
+          :disabled="!isSetLangCode"
           @click="exportFile()"
         >保存文件</b-button>
 
@@ -90,6 +90,7 @@
       <template v-else-if="position === 'bottom'">
 
         <b-pagination
+          v-show="isSetLangCode"
           v-model="pageNum"
           :per-page="pageSize"
           :total="totalSize"
@@ -152,6 +153,11 @@ export default {
       'langItemsEdit',
       'totalSize',
     ]),
+
+    /** 是否已选择 Language Code */
+    isSetLangCode(vm) {
+      return (vm.langCodeEdit && vm.langCodeSrc);
+    },
 
     /** 来源的 Language Code */
     langCodeSrc: {
