@@ -271,9 +271,16 @@ export default {
     /** 推送本地的编辑数据到 state */
     pushEditDatas(isForce = false) {
 
+      const { editDatas } = this;
+
+      // 没有数据，取消推送
+      if (!editDatas) {
+        return;
+      }
+
       const lastTS = this.lastPushTimestamp;
       const currTS = new Date().getTime();
-      const minOffset = (20000);
+      const minOffset = (10000);
 
       if (isForce || (currTS - lastTS >= minOffset)) {
         // 可以推送
@@ -283,7 +290,7 @@ export default {
         return;
       }
 
-      const datas = JSON.parse(JSON.stringify(this.editDatas));
+      const datas = JSON.parse(JSON.stringify(editDatas));
 
       this.$store.commit('syncLangItems', datas);
       this.lastPushTimestamp = currTS;
