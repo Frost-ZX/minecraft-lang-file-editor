@@ -10,6 +10,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
 
+    /** 调试模式 */
+    isDebug: (localStorage.getItem('isDebug') === '1'),
+
     /** @type {string[]} */
     langCodes: [],
 

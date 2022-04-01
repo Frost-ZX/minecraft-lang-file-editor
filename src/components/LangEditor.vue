@@ -90,9 +90,6 @@ export default {
   data() {
     return {
 
-      /** 调试模式 */
-      isDebug: true,
-
       /**
        * @description 本地的 langItemsEdit 数据
        * @type { import('@/types').LangItemList }
@@ -119,6 +116,7 @@ export default {
   computed: {
 
     ...mapState([
+      'isDebug',
       'langCodeSrc',
       'langCodeEdit',
       'langItemsEdit',
