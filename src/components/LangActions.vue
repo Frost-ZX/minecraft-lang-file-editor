@@ -12,7 +12,7 @@
           ref="inputFile"
           type="file"
           class="input-file"
-          accept="application/json"
+          accept=".json,.lang"
           @change="getLangFile($event)"
         />
 
@@ -246,32 +246,86 @@ export default {
       utils.readFileAsText(ev, true).then((res) => {
 
         let data = res[0];
-        let langCode = '';
-        let content = null;
 
         if (!data) {
           return;
         }
 
-        try {
-          langCode = data.name.replace('.json', '');
-        } catch (error) {
-          console.warn('[文件名解析失败]', error);
-        }
+        // 正则：匹配文件扩展名
+        const extReg = new RegExp(/(\.json|\.lang)$/);
 
-        // 匹配 Unicode 编码前缀字符串
+        // 正则：匹配 Unicode 编码前缀字符串
         const slashReg = new RegExp(/\\u/, 'g');
 
+        const fileName = data.name.toLowerCase();
+        const fileExtCheck = fileName.match(extReg);
+        const fileExtStr = fileExtCheck?.[0];
+
+        let langCode = '';
+        let contentStr = null;
+        let contentParsed = null;
+
+        // 识别 Language Code
         try {
-          content = data.content.replace(slashReg, '\\\\u');
-          content = JSON5.parse(content);
+          langCode = fileName.replace(extReg, '');
         } catch (error) {
-          const msg = (`JSON 解析失败（${String(error)}）`);
+          console.warn('[Language Code 识别失败]', error);
+        }
+
+        // 检测文件扩展名
+        if (!fileExtStr) {
           utils.toast({
             duration: 5000,
-            message: msg,
+            message: '文件扩展名错误，应为 .json 或 .lang。',
             type: 'is-danger',
           });
+          return;
+        }
+
+        // 转义 Unicode 编码
+        try {
+          contentStr = data.content.replace(slashReg, '\\\\u');
+        } catch (error) {
+          console.error('[转义]', error);
+          utils.toast({
+            duration: 5000,
+            message: '转义 Unicode 编码失败！',
+            type: 'is-danger',
+          });
+        }
+
+        // 根据文件扩展名选择对应的解析方式
+        if (fileExtStr === '.json') {
+
+          // JSON
+          try {
+            contentParsed = JSON5.parse(contentStr);
+          } catch (error) {
+            const msg = (`JSON 解析失败（${String(error)}）`);
+            utils.toast({
+              duration: 5000,
+              message: msg,
+              type: 'is-danger',
+            });
+            return;
+          }
+
+        } else if (fileExtStr === '.lang') {
+
+          // LANG
+          contentParsed = utils.lang2json(contentStr);
+
+          if (!contentParsed) {
+            utils.toast({
+              duration: 5000,
+              message: 'LANG 文件解析失败！',
+              type: 'is-danger',
+            });
+            return;
+          }
+
+        } else {
+          console.error('解析方式匹配失败！');
           return;
         }
 
@@ -285,7 +339,7 @@ export default {
         const fnAddItem = (value) => {
           this.$store.dispatch('addLangItem', {
             langCode: value,
-            content,
+            content: contentParsed,
           }).then(fnHandleRes);
         };
 

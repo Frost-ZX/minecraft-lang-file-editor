@@ -10,6 +10,42 @@ class Utils {
   constructor() { }
 
   /**
+   * @description 将 .lang 文件内容转换为 JSON
+   * @param {string} content 文件文本内容
+   */
+  lang2json(content = null) {
+
+    if (content === '') {
+      return {};
+    }
+
+    if (typeof content !== 'string') {
+      console.error('转换失败，参数格式错误！');
+      return null;
+    }
+
+    const replaced = content.replace(/\r/g, '');
+    const rows = replaced.split('\n');
+    const result = {};
+
+    rows.forEach((row) => {
+
+      // 排除空行和注释
+      if (!row || row.startsWith('#')) {
+        return;
+      }
+
+      const kv = row.split('=');
+
+      result[kv[0]] = (kv[1] || '');
+
+    });
+
+    return result;
+
+  }
+
+  /**
    * @description 分页获取对象数据
    * @param {object} options
    * @param {Object.<string, *>} options.obj
