@@ -224,7 +224,7 @@ export default {
       }
 
       try {
-        const content = JSON.stringify(datas);
+        const content = JSON.stringify(datas, null, 4);
         const replaced = content.replace(/\\\\u/g, '\\u');
         const blob = new Blob([replaced], {
           type: 'application/json;charset=utf-8'
