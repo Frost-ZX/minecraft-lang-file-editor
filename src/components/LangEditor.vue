@@ -12,12 +12,15 @@
       >推送 state</b-button>
     </div>
 
-    <div class="editor-content" @click="handleClickContent($event)">
+    <div
+      ref="editorContent"
+      class="editor-content"
+      @click="handleClickContent($event)"
+    >
       <template v-if="showLangItems">
 
         <div
           v-for="(langItem, langKey, langIndex) in editDatasPage"
-          ref="langItems"
           :key="langKey"
           :class="{
             'is-add': (!langItem[langCodeSrc] && langItem[langCodeEdit]),
@@ -131,7 +134,7 @@ export default {
       const code = vm.langCodeEdit;
       const label = langCodes[code]?.label;
 
-      return (label ? `${code}（${label}）` : code);
+      return (label ? `${code} [${label}]` : code);
 
     },
 
@@ -141,7 +144,7 @@ export default {
       const code = vm.langCodeSrc;
       const label = langCodes[code]?.label;
 
-      return (label ? `${code}（${label}）` : code);
+      return (label ? `${code} [${label}]` : code);
 
     },
 
@@ -187,21 +190,22 @@ export default {
     copyToClipboard(index = 0) {
 
       /** @type {HTMLDivElement} */
-      let wrapper = this.$refs['langItems']?.[index];
+      const editorContent = this.$refs['editorContent'];
 
-      /** @type {HTMLInputElement} */
-      let el = null;
-
-      if (wrapper) {
-        el = wrapper.getElementsByTagName('input')[0];
+      if (!editorContent) {
+        console.error('复制失败，编辑区元素不存在！');
+        return;
       }
+
+      const inputs = editorContent.querySelectorAll('.lang-item input');
+      const el = inputs[index];
 
       if (el) {
         el.focus();
         el.select();
         document.execCommand('copy');
       } else {
-        console.error('复制失败，元素不存在！');
+        console.error('复制失败，找不到对应的输入框元素元素！');
       }
 
     },
@@ -382,6 +386,7 @@ export default {
 
 .lang-item {
   padding: 0.5rem;
+  padding-left: 1rem;
   border-bottom: 0.0625rem solid #DDD;
   border-left: 0.25rem solid #DDD;
 
