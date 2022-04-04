@@ -153,14 +153,16 @@ export default new Vuex.Store({
         return result;
       }
 
-      const {
-        langCodes,
-        langItemsDefault,
-        langItemsEdit,
-      } = state;
+      const { langCodes } = state;
+
+      /** @type {state.langItemsDefault} */
+      const langItemsDefault = JSON.parse(JSON.stringify(state.langItemsDefault));
+
+      /** @type {state.langItemsEdit} */
+      const langItemsEdit = JSON.parse(JSON.stringify(state.langItemsEdit));
 
       if (langCodes.includes(langCode)) {
-        result.msg = '当前 Language Code 已存在，取消添加';
+        result.msg = '当前 Language Code 已存在，取消添加。';
         return result;
       }
 
@@ -178,6 +180,10 @@ export default new Vuex.Store({
         langItemsDefault[key][langCode] = str;
         langItemsEdit[key][langCode] = str;
       }
+
+      // 更新数据
+      state.langItemsDefault = langItemsDefault;
+      state.langItemsEdit = langItemsEdit;
 
       // 记录 Language Code
       langCodes.push(langCode);
