@@ -1,9 +1,9 @@
-# minecraft-lang-file-editor
+# Minecraft Language File Editor
 
 ## 简介
 
-一个使用 Vue 开发的用于编辑 Minecraft JSON 语言文件的工具。  
-目前仅支持以下格式的语言文件：
+一个使用 Vue 开发的用于编辑 Minecraft 语言文件的工具。  
+目前支持 JSON 和 LANG 格式的语言文件：
 
 ```json
 {
@@ -11,6 +11,12 @@
     "key_2": "文本 2",
     ...
 }
+```
+
+```text
+key_1=文本 1
+key_2=文本 2
+...
 ```
 
 ## 特性
