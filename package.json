@@ -13,9 +13,9 @@
     "lint-fix": "vue-cli-service lint"
   },
   "dependencies": {
-    "@mdi/font": "^6.5.95",
-    "buefy": "^0.9.19",
-    "core-js": "^3.8.3",
+    "@mdi/font": "^6.6.96",
+    "buefy": "^0.9.20",
+    "core-js": "^3.22.1",
     "file-saver": "^2.0.5",
     "json5": "^2.2.1",
     "ress": "^5.0.2",
@@ -23,17 +23,17 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
+    "@babel/core": "^7.17.9",
+    "@babel/eslint-parser": "^7.17.0",
     "@types/file-saver": "^2.0.5",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
+    "@vue/cli-plugin-babel": "~5.0.4",
+    "@vue/cli-plugin-eslint": "~5.0.4",
+    "@vue/cli-plugin-vuex": "~5.0.4",
+    "@vue/cli-service": "~5.0.4",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
-    "less": "^4.0.0",
-    "less-loader": "^8.0.0",
+    "eslint-plugin-vue": "^8.6.0",
+    "less": "^4.1.2",
+    "less-loader": "^8.1.1",
     "vue-template-compiler": "^2.6.14"
   }
 }
