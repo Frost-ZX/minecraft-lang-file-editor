@@ -27,6 +27,17 @@
           @click="resetData()"
         >重置数据</b-button>
 
+        <b-tooltip
+          label="保存格式"
+          position="is-left"
+          type="is-dark"
+        >
+          <b-select v-model="saveType" class="type-select">
+            <option value="json">JSON</option>
+            <option value="lang">LANG</option>
+          </b-select>
+        </b-tooltip>
+
         <div class="lang-select">
 
           <b-tooltip
@@ -144,6 +155,9 @@ export default {
         10, 20, 30, 40, 50, 100, 200, 500, 1000,
       ],
 
+      /** @type {'json'|'lang'} */
+      saveType: 'json',
+
     }
   },
   computed: {
@@ -214,6 +228,7 @@ export default {
       const {
         langCodeEdit,
         langItemsEdit,
+        saveType,
       } = this;
 
       const datas = {};
@@ -224,12 +239,27 @@ export default {
       }
 
       try {
-        const content = JSON.stringify(datas, null, 4);
-        const replaced = content.replace(/\\\\u/g, '\\u');
-        const blob = new Blob([replaced], {
-          type: 'application/json;charset=utf-8'
-        });
-        saveAs(blob, `${langCodeEdit}.json`);
+        if (saveType === 'json') {
+
+          const content = JSON.stringify(datas, null, 4);
+          const replaced = content.replace(/\\\\u/g, '\\u');
+          const blob = new Blob([replaced], {
+            type: 'application/json;charset=utf-8'
+          });
+          saveAs(blob, `${langCodeEdit}.json`);
+
+        } else if (saveType == 'lang') {
+
+          let content = '';
+          for (let key in datas) {
+            content += `${key}=${datas[key]}\n`;
+          }
+          const blob = new Blob([content], {
+            type: 'text/plain;charset=utf-8'
+          });
+          saveAs(blob, `${langCodeEdit}.lang`);
+
+        }
       } catch (error) {
         console.error('[保存失败]', error);
         utils.toast({
@@ -427,6 +457,10 @@ export default {
 
 .input-file {
   display: none;
+}
+
+.type-select {
+  width: 6rem;
 }
 
 .lang-select {
