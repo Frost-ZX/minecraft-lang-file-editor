@@ -8,4 +8,5 @@ jobs:
   call-workflow:
     uses: Frost-ZX/github-actions/.github/workflows/vue-build-and-deploy-pages.yml@main
     with:
+      build_script_name: build-modern
       package_manager: pnpm
